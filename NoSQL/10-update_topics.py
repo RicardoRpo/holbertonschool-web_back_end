@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
-""" Insert document """
+""" Update School """
 import pymongo
+from typing import List
 
 
-def insert_school(mongo_collection, **kwargs):
-    """ Insert a school with features
-
+def update_topics(mongo_collection, name, topics):
+    """ Change the data
+    
         Args:
-            mongo_collection: Collection to pass
-            kwargs: Dictionary with elements to put
+            mongo_collection:
+            name: School
+            topics: School name
 
         Return:
-            Id of the new element
+            Nothing
     """
-    new_school = mongo_collection.insert_one(kwargs)
-
-    return (new_school.inserted_id)
+    query: dict = {'name': name}
+    mongo_collection.update_many(query, {"$set": {"topics": topics}})
